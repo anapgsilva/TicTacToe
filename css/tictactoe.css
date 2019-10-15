@@ -21,11 +21,12 @@ h1 {
   text-align: center;
   color: #c91df0;
   font-family: 'Rock Salt', cursive;
+  font-size: 40px;
 }
 
 .scores {
   max-width: 500px;
-  margin: 0;
+  margin: 20px;
   position: relative;
 }
 
@@ -58,6 +59,13 @@ h1 {
 .playerOneScore .playerTwoScore {
   font-size: 20px;
   padding: 10px
+}
+
+.turn {
+  text-align: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 30px;
 }
 
 .boardgame {

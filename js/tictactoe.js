@@ -1,23 +1,18 @@
 
 
-//initiallize current player
+//initiallize all variables
 let currentPlayer = "playerOne";
 let currentPlay;
 let validPlay;
 let endGame = false;
+let playerScore = 0;
 
-// debugger;
-
-//To do - make boxes not work after game is over
-//add images dog/cat; sun/moon;
-//shows whose turn it is
 
 
 //will check game status
 const render = function () {
-  console.log(`currentPlayer`, currentPlayer);
+
   validPlay = game.isValidPlay(currentPlay, currentPlayer, endGame); //check if valid play
-  console.log(`validPlay`, validPlay);
 
   if (validPlay) { //updates play with image
     if (currentPlayer === "playerOne") {
@@ -27,26 +22,32 @@ const render = function () {
     }
     endGame = game.isGameOver(currentPlayer); //checks if game finished
   }
-  console.log(`isGameOver`,endGame);
 
-  if (endGame){
-      $(".hidden").removeClass('hidden');    //shows message
-      if (currentPlayer === "playerOne") {   //if winner playerOne
+  if (endGame && playerScore === 0){ //If GAME OVER
+      $(".gameStatus h3").removeClass('hidden'); //shows message
+      $('.turn').addClass('hidden');
+
+      if (currentPlayer === "playerOne") {   //updates score P1
         $('#finalScore').html(`Player 1 wins!`);
-        let player1score = +$('#playerOneScore').html();
-        $('#playerOneScore').html(player1score + 1);
+        playerScore = +$('#playerOneScore').html() + 1;
+        $('#playerOneScore').html(playerScore);
 
       }
-      else if (endGame === "playerTwo") {    //if winner playerTwo
+      else if (currentPlayer === "playerTwo") { //updates score P2
         $('#finalScore').html(`Player 2 wins.`);
-        let player2score = +$('#playerTwoScore').html();
-        $('#playerTwoScore').html(player2score + 1);
-      } else {
-        $('#finalScore').html("It's a tie");
+        playerScore = +$('#playerTwoScore').html() + 1;
+        $('#playerTwoScore').html(playerScore);
+      }
+      else {
+        $('#finalScore').html("It's a tie"); //if a tie
       }
   }
-  console.log('can i see this');
-  currentPlayer = game.nextPlayer(currentPlayer, validPlay, endGame);
+  currentPlayer = game.nextPlayer(currentPlayer, validPlay, endGame); //updates next player
+  if (currentPlayer === "playerOne") { //updates html player's turn
+    $('.turn span').html(1);
+  } else {
+    $('.turn span').html(2);
+  }
 }
 
 
@@ -54,7 +55,7 @@ const render = function () {
 
 
 
-//get all box as event listeners
+//get doc ready and set event listeners
 $(document).ready(function () {
 
   $('#topleft').on('click', function() {
@@ -102,9 +103,13 @@ $(document).ready(function () {
     currentPlay = 'bottomright';
     render();
   });
+
+  //resets game css
   $('#reset').on('click', function() {
     game.resetGame();
     $('.gameStatus h3').addClass('hidden');
+    $('.turn').removeClass('hidden');
     $('.box').css('background-image', '');
+    $('.turn span').html(1);
   })
 });

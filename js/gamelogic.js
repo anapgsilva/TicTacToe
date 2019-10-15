@@ -1,12 +1,10 @@
-
-//can only put a symbol when empty
-//if empty add symbol
+//Object with game logic
 
 
 const game = {
-  playerOne: [],    //stores the plays for player 1
-  playerTwo: [],     //stores the plays for player 2
-  winningPlays: [   //set of winning plays to win
+  playerOne: [],    //stores P1 plays
+  playerTwo: [],     //stores P2 plays
+  winningPlays: [   //Possible plays to win
     ['topleft', 'topmiddle', 'topright'],
     ['middleleft', 'center', 'middleright'],
     ['bottomleft', 'bottommiddle', 'bottomright'],
@@ -16,7 +14,8 @@ const game = {
     ['topleft', 'center', 'bottomright'],
     ['topright', 'center', 'bottomleft']
   ],
-  nextPlayer: function(currentPlayer, validPlay, endGame) {  //updates the next player
+  //updates the next player if valid play and game not over
+  nextPlayer: function(currentPlayer, validPlay, endGame) {
     if (validPlay && endGame === false) {
       if (currentPlayer === "playerOne") {
         return "playerTwo";
@@ -25,11 +24,11 @@ const game = {
         return "playerOne";
       }
     } else {
-      return validPlay, currentPlayer;
+      return currentPlayer; //no action otherwise
     }
   },
-
-  isGameOver: function(currentPlayer) {   //checks if game over with winner or tie
+  //checks if game over with winner or tie
+  isGameOver: function(currentPlayer) {
     for (let i = 0; i < this.winningPlays.length; i++){
       let play = 0;
       for (let j = 0; j < this.winningPlays[i].length; j++) {
@@ -48,7 +47,7 @@ const game = {
       return false;
     }
   },
-
+  //checks if valid play, if valid then adds to player array of plays
   isValidPlay: function(currentPlay, currentPlayer, endGame) {
     if (this.playerOne.includes(currentPlay) || this.playerTwo.includes(currentPlay)) {
       console.log(`invalid play`);
@@ -61,11 +60,12 @@ const game = {
       return true;
     }
   },
-
+  //resets boardgame, but not P1 and P2 scores
     resetGame: function() {
       this.playerOne = [];
       this.playerTwo = [];
       currentPlayer = "playerOne";
       endGame = false;
+      playerScore = 0;
     }
 }
