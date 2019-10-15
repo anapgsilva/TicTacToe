@@ -44,7 +44,7 @@ const game = {
       }
     }
     if ((this.playerOne.length + this.playerTwo.length) === 9) {
-      return "It's a tie";
+      return "It's a tie!";
     } else {
       return false;
     }

@@ -7,8 +7,8 @@ let result;
 
 // debugger;
 
-//To do - reset game (css, scores or not, players arrays )
-//add images to the boxes XO or images dog/cat; sun/moon;
+//To do - reset game (css: remove bottom result, remove symbols, reset players arrays add reset button)
+//add images dog/cat; sun/moon;
 //shows whose turn it is
 
 
@@ -16,6 +16,12 @@ let result;
 const render = function () {
   console.log(currentPlayer);
   console.log(currentPlay);
+  if (currentPlayer === "playerOne") {
+    $currentPlay.css("background-image", "url('images/knot.png')");
+  } else {
+    $currentPlay.css("background-image", "url('images/circle.png')");
+  }
+
   if (game.isValidPlay(currentPlay, currentPlayer)) { //checks if valid play
     result = game.isGameOver(currentPlayer); //checks if game finished
   }
@@ -34,7 +40,7 @@ const render = function () {
       } else {
         return $('#finalScore').html(result);
       }
-      game.resetGame();
+      return game.resetGame();
 
   } else {
     currentPlayer = game.nextPlayer(currentPlayer);
@@ -50,38 +56,47 @@ const render = function () {
 $(document).ready(function () {
 
   $('#topleft').on('click', function() {
+    $currentPlay = $('#topleft');
     currentPlay = 'topleft';
     render();
   });
   $('#topmiddle').on('click', function() {
+    $currentPlay = $('#topmiddle');
     currentPlay = 'topmiddle';
     render();
   });
   $('#topright').on('click', function() {
+    $currentPlay = $('#topright');
     currentPlay = 'topright';
     render();
   });
   $('#middleleft').on('click', function() {
+    $currentPlay = $('#middleleft');
     currentPlay = 'middleleft';
     render();
   });
   $('#center').on('click', function() {
+    $currentPlay = $('#center');
     currentPlay = 'center';
     render();
   });
   $('#middleright').on('click', function() {
+    $currentPlay = $('#middleright');
     currentPlay = 'middleright';
     render();
   });
   $('#bottomleft').on('click', function() {
+    $currentPlay = $('#bottomleft');
     currentPlay = 'bottomleft';
     render();
   });
   $('#bottommiddle').on('click', function() {
+    $currentPlay = $('#bottommiddle');
     currentPlay = 'bottommiddle';
     render();
   });
   $('#bottomright').on('click', function() {
+    $currentPlay = $('#bottomright');
     currentPlay = 'bottomright';
     render();
   });
