@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/tictactoe.css">
+    <link href="https://fonts.googleapis.com/css?family=Rock+Salt&display=swap" rel="stylesheet">
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src="js/tictactoe.js"></script>
+    <script src="js/gamelogic.js"></script>
+
+    <title>TicTacToe</title>
+  </head>
+  <body>
+    <div class="container">
+
+
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+
+      <div class="scores">
+        <div class="playerOne">
+          <button id="player1">Player 1</button>
+          <h4>Score: <span id="playerOneScore">0</span></h4>
+        </div>
+        <div class="playerTwo">
+          <button id="player2">Player 2</button>
+          <h4>Score: <span id="playerTwoScore">0</span></h4>
+        </div>
+      </div>
+
+      <div class="boardgame">
+
+        <div class="toprow">
+          <div class="left box" id="topleft"></div>
+          <div class="middle box" id="topmiddle"></div>
+          <div class="right box" id="topright"></div>
+        </div>
+
+        <div class="middlerow">
+          <div class="left box" id="middleleft"></div>
+          <div class="middle box" id="center"></div>
+          <div class="right box" id="middleright"></div>
+        </div>
+
+        <div class="bottomrow">
+          <div class="left box" id="bottomleft"></div>
+          <div class="middle box" id="bottommiddle"></div>
+          <div class="right box" id="bottomright"></div>
+        </div>
+
+      </div>
+
+      <div class="gameStatus hidden">GAME OVER<br><span id="finalScore"></span></div>
+
+    </div>
+
+  </body>
+</html>
