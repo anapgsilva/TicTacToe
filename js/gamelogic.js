@@ -16,15 +16,16 @@ const game = {
     ['topleft', 'center', 'bottomright'],
     ['topright', 'center', 'bottomleft']
   ],
-  nextPlayer: function(currentPlayer) {  //updates the next player
-    if (currentPlayer === "playerOne") {
-      currentPlayer = "playerTwo";
-      console.log(`Next player is `, currentPlayer);
-      return currentPlayer;
-    } else if (currentPlayer === "playerTwo") {
-      currentPlayer = "playerOne";
-      console.log(`Next player is `, currentPlayer);
-      return currentPlayer;
+  nextPlayer: function(currentPlayer, validPlay, endGame) {  //updates the next player
+    if (validPlay && endGame === false) {
+      if (currentPlayer === "playerOne") {
+        return "playerTwo";
+      }
+      else if (currentPlayer === "playerTwo") {
+        return "playerOne";
+      }
+    } else {
+      return validPlay, currentPlayer;
     }
   },
 
@@ -33,34 +34,30 @@ const game = {
       let play = 0;
       for (let j = 0; j < this.winningPlays[i].length; j++) {
         if (this[currentPlayer].includes(this.winningPlays[i][j])) {
-          console.log(this.winningPlays[i][j]);
           play++;
-          console.log(play);
         }
         if (play === 3) {
           console.log(`winner is`, currentPlayer );
-          return currentPlayer;
+          return true;
         }
       }
     }
     if ((this.playerOne.length + this.playerTwo.length) === 9) {
-      return "It's a tie!";
+      return true;
     } else {
       return false;
     }
   },
 
-  isValidPlay: function(currentPlay, currentPlayer) {
+  isValidPlay: function(currentPlay, currentPlayer, endGame) {
     if (this.playerOne.includes(currentPlay) || this.playerTwo.includes(currentPlay)) {
       console.log(`invalid play`);
       return false;
-    } else if (currentPlayer === "playerOne") {
+    } else if (currentPlayer === "playerOne" && endGame === false) {
       game.playerOne.push(currentPlay);
-      console.log(`valid play for 1`);
       return true;
-    } else if (currentPlayer === "playerTwo") {
+    } else if (currentPlayer === "playerTwo" && endGame === false) {
       game.playerTwo.push(currentPlay);
-      console.log(`valid play for 2`);
       return true;
     }
   },
@@ -68,5 +65,7 @@ const game = {
     resetGame: function() {
       this.playerOne = [];
       this.playerTwo = [];
+      currentPlayer = "playerOne";
+      endGame = false;
     }
 }
