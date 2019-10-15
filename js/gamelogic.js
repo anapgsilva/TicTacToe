@@ -50,13 +50,6 @@ const game = {
     }
   },
 
-  resetGame: function() {
-    this.playerOne = [];
-    this.playerTwo = [];
-    console.log(this.playerOne);
-    console.log(this.playerTwo);
-  },
-
   isValidPlay: function(currentPlay, currentPlayer) {
     if (this.playerOne.includes(currentPlay) || this.playerTwo.includes(currentPlay)) {
       console.log(`invalid play`);
@@ -70,5 +63,10 @@ const game = {
       console.log(`valid play for 2`);
       return true;
     }
-  }
+  },
+
+    resetGame: function() {
+      this.playerOne = [];
+      this.playerTwo = [];
+    }
 }

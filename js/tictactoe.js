@@ -40,8 +40,6 @@ const render = function () {
       } else {
         return $('#finalScore').html(result);
       }
-      return game.resetGame();
-
   } else {
     currentPlayer = game.nextPlayer(currentPlayer);
   }
@@ -100,4 +98,9 @@ $(document).ready(function () {
     currentPlay = 'bottomright';
     render();
   });
+  $('#reset').on('click', function() {
+    game.resetGame();
+    $('.gameStatus').addClass('hidden');
+    $('.box').css('background-image', '');
+  })
 });
