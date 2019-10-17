@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/tictactoe.css">
     <link href="https://fonts.googleapis.com/css?family=Rock+Salt&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/animate.css-master/animate.min.css">
     <script src="js/jquery-1.7.2.js"></script>
     <script src="js/tictactoe.js"></script>
     <script src="js/gamelogic.js"></script>
@@ -20,16 +21,27 @@
 
       <div class="scores">
         <div class="playerOne">
-          <button id="player1">Player 1</button>
-          <h4>Score: <span id="playerOneScore">0</span></h4>
+          <select id="player1avatar">
+            <option value="text">circle</option>
+            <option value="text">dog</option>
+            <option value="text">water</option>
+            <option value="text">sun</option>
+          </select>
+          <h4>Player 1: <span id="playerOneScore">0</span></h4>
         </div>
+
         <div class="playerTwo">
-          <button id="player2">Player 2</button>
-          <h4>Score: <span id="playerTwoScore">0</span></h4>
+          <select id="player2avatar">
+            <option value="text">cross</option>
+            <option value="text">cat</option>
+            <option value="text">fire</option>
+            <option value="text">moon</option>
+          </select>
+          <h4>Player 2: <span id="playerTwoScore">0</span></h4>
         </div>
       </div>
 
-      <h2 class="turn">Player <span>1</span>'s turn</h2>
+      <h2 class="turn">Player 1 starts</h2>
 
       <div class="boardgame">
 
@@ -54,7 +66,7 @@
       </div>
 
       <div class="gameStatus">
-        <h3 class="hidden">GAME OVER<br><span id="finalScore"></span></h3>
+        <h3 class="hidden">GAME OVER</h3>
         <button id="reset">reset</button>
       </div>
 

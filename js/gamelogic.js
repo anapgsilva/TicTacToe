@@ -24,7 +24,7 @@ const game = {
         return "playerOne";
       }
     } else {
-      return currentPlayer; //no action otherwise
+      return ""; //no action otherwise
     }
   },
   //checks if game over with winner or tie
@@ -36,12 +36,15 @@ const game = {
           play++;
         }
         if (play === 3) {
+          winner = currentPlayer;
           console.log(`winner is`, currentPlayer );
           return true;
         }
       }
     }
     if ((this.playerOne.length + this.playerTwo.length) === 9) {
+      winner = "Tie";
+      console.log(winner);
       return true;
     } else {
       return false;

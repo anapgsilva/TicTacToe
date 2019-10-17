@@ -6,7 +6,41 @@ let currentPlay;
 let validPlay;
 let endGame = false;
 let playerScore = 0;
+let winner;
 
+
+let avatar;
+let image;
+const chooseAvatar = function(avatar) {
+  switch (avatar) {
+    case "cross":
+    return "url('images/cross.png')";
+    break;
+    case "circle":
+    return "url('images/circle.png')";
+    break;
+    case "dog":
+    return "url('images/dog.png')";
+    break;
+    case "cat":
+    return "url('images/grumpycat.png')";
+    break;
+    case "fire":
+    return "url('images/fire.png')";
+    break;
+    case "moon":
+    return "url('images/moon.png')";
+    break;
+    case "sun":
+    return "url('images/sun.png')";
+    break;
+    case "water":
+    return "url('images/water.png')";
+    break;
+    default:
+    return false;
+  }
+}
 
 
 //will check game status
@@ -16,37 +50,45 @@ const render = function () {
 
   if (validPlay) { //updates play with image
     if (currentPlayer === "playerOne") {
-      $currentPlay.css("background-image", "url('images/knot.png')");
+      avatar = $('#player1avatar option:selected').text();
+      console.log(avatar);
+      $currentPlay.css("background-image", chooseAvatar(avatar));
     } else {
-      $currentPlay.css("background-image", "url('images/circle.png')");
+      avatar = $('#player2avatar option:selected').text();
+      console.log(avatar);
+      $currentPlay.css("background-image", chooseAvatar(avatar));
     }
     endGame = game.isGameOver(currentPlayer); //checks if game finished
   }
 
   if (endGame && playerScore === 0){ //If GAME OVER
       $(".gameStatus h3").removeClass('hidden'); //shows message
-      $('.turn').addClass('hidden');
-
-      if (currentPlayer === "playerOne") {   //updates score P1
-        $('#finalScore').html(`Player 1 wins!`);
+      console.log(winner);
+      if (winner === "playerOne") {   //updates score P1
+        console.log('i see this');
+        $('h2.turn').addClass('animated');
+        $('h2.turn').addClass('jackInTheBox');
+        $('h2.turn').text("Player 1 wins!");
         playerScore = +$('#playerOneScore').html() + 1;
         $('#playerOneScore').html(playerScore);
 
       }
-      else if (currentPlayer === "playerTwo") { //updates score P2
-        $('#finalScore').html(`Player 2 wins.`);
+      else if (winner === "playerTwo") { //updates score P2
+        $('h2.turn').addClass('animated');
+        $('h2.turn').addClass('jackInTheBox');
+        $('h2.turn').text("Player 2 wins!");
         playerScore = +$('#playerTwoScore').html() + 1;
         $('#playerTwoScore').html(playerScore);
       }
-      else {
-        $('#finalScore').html("It's a tie"); //if a tie
+      else if (winner === "Tie"){
+        $('h2.turn').text("It's a tie."); //if a tie
       }
   }
   currentPlayer = game.nextPlayer(currentPlayer, validPlay, endGame); //updates next player
   if (currentPlayer === "playerOne") { //updates html player's turn
-    $('.turn span').html(1);
-  } else {
-    $('.turn span').html(2);
+    $('h2.turn').html("Player 1's turn");
+  } else if (currentPlayer === "playerTwo") {
+    $('h2.turn').html("Player 2's turn");
   }
 }
 
@@ -108,8 +150,9 @@ $(document).ready(function () {
   $('#reset').on('click', function() {
     game.resetGame();
     $('.gameStatus h3').addClass('hidden');
-    $('.turn').removeClass('hidden');
     $('.box').css('background-image', '');
-    $('.turn span').html(1);
+    $('h2.turn').html("Player 1 starts");
+    $('h2.turn').removeClass('animated');
+    $('h2.turn').removeClass('jackInTheBox');
   })
 });
