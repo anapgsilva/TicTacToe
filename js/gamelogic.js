@@ -1,6 +1,5 @@
 //Object with game logic
 
-
 const game = {
   playerOne: [],    //stores P1 plays
   playerTwo: [],     //stores P2 plays
@@ -30,9 +29,13 @@ const game = {
   //checks if game over with winner or tie
   isGameOver: function(currentPlayer) {
     for (let i = 0; i < this.winningPlays.length; i++){
-      let play = 0;
+      plays = []; //stores winning plays
+      let play = 0; //initialises count
+
       for (let j = 0; j < this.winningPlays[i].length; j++) {
+
         if (this[currentPlayer].includes(this.winningPlays[i][j])) {
+          plays.push(this.winningPlays[i][j]);
           play++;
         }
         if (play === 3) {
