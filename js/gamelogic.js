@@ -37,14 +37,12 @@ const game = {
         }
         if (play === 3) {
           winner = currentPlayer;
-          console.log(`winner is`, currentPlayer );
           return true;
         }
       }
     }
     if ((this.playerOne.length + this.playerTwo.length) === 9) {
       winner = "Tie";
-      console.log(winner);
       return true;
     } else {
       return false;

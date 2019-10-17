@@ -1,5 +1,3 @@
-
-
 //initiallize all variables
 let currentPlayer = "playerOne";
 let currentPlay;
@@ -10,7 +8,6 @@ let winner;
 
 
 let avatar;
-let image;
 const chooseAvatar = function(avatar) {
   switch (avatar) {
     case "cross":
@@ -48,7 +45,7 @@ const render = function () {
 
   validPlay = game.isValidPlay(currentPlay, currentPlayer, endGame); //check if valid play
 
-  if (validPlay) { //updates play with image
+  if (validPlay) { //plays avatar for current player
     if (currentPlayer === "playerOne") {
       avatar = $('#player1avatar option:selected').text();
       console.log(avatar);
@@ -58,42 +55,44 @@ const render = function () {
       console.log(avatar);
       $currentPlay.css("background-image", chooseAvatar(avatar));
     }
-    endGame = game.isGameOver(currentPlayer); //checks if game finished
+    endGame = game.isGameOver(currentPlayer); //endGame true if game over
   }
 
-  if (endGame && playerScore === 0){ //If GAME OVER
-      $(".gameStatus h3").removeClass('hidden'); //shows message
+  if (endGame && playerScore === 0){ //If game is over
+      //shows message
+      $(".gameStatus h3").removeClass('hidden');
       console.log(winner);
-      if (winner === "playerOne") {   //updates score P1
+      //updates score P1 and message
+      if (winner === "playerOne") {
         console.log('i see this');
         $('h2.turn').addClass('animated');
         $('h2.turn').addClass('jackInTheBox');
         $('h2.turn').text("Player 1 wins!");
         playerScore = +$('#playerOneScore').html() + 1;
         $('#playerOneScore').html(playerScore);
-
       }
-      else if (winner === "playerTwo") { //updates score P2
+      //updates score P2 and message
+      else if (winner === "playerTwo") {
         $('h2.turn').addClass('animated');
         $('h2.turn').addClass('jackInTheBox');
         $('h2.turn').text("Player 2 wins!");
         playerScore = +$('#playerTwoScore').html() + 1;
         $('#playerTwoScore').html(playerScore);
       }
+      //If it's a Tie shows message
       else if (winner === "Tie"){
-        $('h2.turn').text("It's a tie."); //if a tie
+        $('h2.turn').text("It's a tie.");
       }
   }
-  currentPlayer = game.nextPlayer(currentPlayer, validPlay, endGame); //updates next player
-  if (currentPlayer === "playerOne") { //updates html player's turn
+  //updates next player
+  currentPlayer = game.nextPlayer(currentPlayer, validPlay, endGame);
+  //updates player's turn headline
+  if (currentPlayer === "playerOne") {
     $('h2.turn').html("Player 1's turn");
   } else if (currentPlayer === "playerTwo") {
     $('h2.turn').html("Player 2's turn");
   }
 }
-
-
-
 
 
 
