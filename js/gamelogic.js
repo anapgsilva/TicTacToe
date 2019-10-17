@@ -24,7 +24,7 @@ const game = {
         return "playerOne";
       }
     } else {
-      return ""; //no action otherwise
+      return currentPlayer; //no action otherwise
     }
   },
   //checks if game over with winner or tie

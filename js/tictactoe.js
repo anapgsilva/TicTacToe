@@ -8,34 +8,36 @@ let winner;
 
 
 let avatar;
-const chooseAvatar = function(avatar) {
-  switch (avatar) {
-    case "cross":
-    return "url('images/cross.png')";
-    break;
-    case "circle":
-    return "url('images/circle.png')";
-    break;
-    case "dog":
-    return "url('images/dog.png')";
-    break;
-    case "cat":
-    return "url('images/grumpycat.png')";
-    break;
-    case "fire":
-    return "url('images/fire.png')";
-    break;
-    case "moon":
-    return "url('images/moon.png')";
-    break;
-    case "sun":
-    return "url('images/sun.png')";
-    break;
-    case "water":
-    return "url('images/water.png')";
-    break;
-    default:
-    return false;
+const chooseAvatar = function(currentPlayer) {
+  avatar = $('#avatar option:selected').text();
+
+  if (avatar === "knots vs crosses") {
+    if (currentPlayer === "playerOne") {
+      $currentPlay.css("background-image", "url('images/knot.png')");
+    } else {
+      $currentPlay.css("background-image", "url('images/cross.png')");
+    }
+  }
+  else if (avatar === "dogs vs cats") {
+    if (currentPlayer === "playerOne") {
+      $currentPlay.css("background-image", "url('images/dog.png')");
+    } else {
+      $currentPlay.css("background-image", "url('images/grumpycat.png')");
+    }
+  }
+  else if (avatar === "water vs fire") {
+    if (currentPlayer === "playerOne") {
+      $currentPlay.css("background-image", "url('images/water.png')");
+    } else {
+      $currentPlay.css("background-image", "url('images/fire.png')");
+    }
+  }
+  else if (avatar === "day vs night") {
+    if (currentPlayer === "playerOne") {
+      $currentPlay.css("background-image", "url('images/sun.png')");
+    } else {
+      $currentPlay.css("background-image", "url('images/moon.png')");
+    }
   }
 }
 
@@ -45,29 +47,21 @@ const render = function () {
 
   validPlay = game.isValidPlay(currentPlay, currentPlayer, endGame); //check if valid play
 
-  if (validPlay) { //plays avatar for current player
-    if (currentPlayer === "playerOne") {
-      avatar = $('#player1avatar option:selected').text();
-      console.log(avatar);
-      $currentPlay.css("background-image", chooseAvatar(avatar));
-    } else {
-      avatar = $('#player2avatar option:selected').text();
-      console.log(avatar);
-      $currentPlay.css("background-image", chooseAvatar(avatar));
-    }
+  if (validPlay) {
+    //choose avatars
+    avatar = chooseAvatar(currentPlayer);
+
     endGame = game.isGameOver(currentPlayer); //endGame true if game over
   }
 
   if (endGame && playerScore === 0){ //If game is over
       //shows message
       $(".gameStatus h3").removeClass('hidden');
-      console.log(winner);
       //updates score P1 and message
       if (winner === "playerOne") {
-        console.log('i see this');
         $('h2.turn').addClass('animated');
         $('h2.turn').addClass('jackInTheBox');
-        $('h2.turn').text("Player 1 wins!");
+        $('h2.turn').html("Player 1 wins!");
         playerScore = +$('#playerOneScore').html() + 1;
         $('#playerOneScore').html(playerScore);
       }
@@ -75,7 +69,7 @@ const render = function () {
       else if (winner === "playerTwo") {
         $('h2.turn').addClass('animated');
         $('h2.turn').addClass('jackInTheBox');
-        $('h2.turn').text("Player 2 wins!");
+        $('h2.turn').html("Player 2 wins!");
         playerScore = +$('#playerTwoScore').html() + 1;
         $('#playerTwoScore').html(playerScore);
       }
@@ -87,10 +81,12 @@ const render = function () {
   //updates next player
   currentPlayer = game.nextPlayer(currentPlayer, validPlay, endGame);
   //updates player's turn headline
-  if (currentPlayer === "playerOne") {
-    $('h2.turn').html("Player 1's turn");
-  } else if (currentPlayer === "playerTwo") {
-    $('h2.turn').html("Player 2's turn");
+  if (endGame === false) {
+    if (currentPlayer === "playerOne") {
+      $('h2.turn').html("Player 1's turn");
+    } else if (currentPlayer === "playerTwo") {
+      $('h2.turn').html("Player 2's turn");
+    }
   }
 }
 
